@@ -3,18 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
-  const navigate = useNavigate(); // For navigation
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-
-    // Simulate login logic
-    const isAuthenticated = true; // Replace with your actual authentication logic
+    e.preventDefault(); 
+    const isAuthenticated = true; 
 
     if (isAuthenticated) {
-      navigate("/home"); // Redirect to the Home page after successful login
+      navigate("/home");
     } else {
-      alert("Invalid login credentials"); // Handle failed login attempts
+      alert("Invalid login credentials");
     }
   };
 
