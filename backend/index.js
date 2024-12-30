@@ -3,26 +3,24 @@ import mongoose from "mongoose";
 import cors from "cors";
 import multer from "multer";
 import "./pdfDetails.js";
+import path from "path";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/files", express.static("files"));
 
-//mongodb connection----------------------------------------------
-const mongoUrl =
-    "mongodb+srv://adarsh:adarsh@cluster0.zllye.mongodb.net/?retryWrites=true&w=majority";
+// MongoDB connection----------------------------------------------
+const mongoUrl = "mongodb+srv://suryashashankneupane:shashank0427@cluster0.u6qg0.mongodb.net/";
 
 mongoose
-    .connect(mongoUrl, {
-        useNewUrlParser: true,
-    })
+    .connect(mongoUrl)
     .then(() => {
         console.log("Connected to database");
     })
     .catch((e) => console.log(e));
 
-//multer------------------------------------------------------------
+// Multer setup----------------------------------------------------
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "./files");
@@ -36,6 +34,7 @@ const storage = multer.diskStorage({
 const PdfSchema = mongoose.model("PdfDetails");
 const upload = multer({ storage: storage });
 
+// File upload endpoint--------------------------------------------
 app.post("/upload-files", upload.single("file"), async (req, res) => {
     console.log(req.file);
     const title = req.body.title;
@@ -48,19 +47,33 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
     }
 });
 
+// Get files endpoint----------------------------------------------
 app.get("/get-files", async (req, res) => {
     try {
-        PdfSchema.find({}).then((data) => {
-            res.send({ status: "ok", data: data });
-        });
-    } catch (error) {}
+        const data = await PdfSchema.find({});
+        res.send({ status: "ok", data: data });
+    } catch (error) {
+        res.json({ status: error });
+    }
 });
 
-//apis----------------------------------------------------------------
+// Root endpoint---------------------------------------------------
 app.get("/", async (req, res) => {
     res.send("Success!!!!!!");
 });
 
 app.listen(5000, () => {
     console.log("Server Started");
+});
+app.get("/get-pdf/:filename", async (req, res) => {
+    const { filename } = req.params; // Get the filename from the request parameters
+    const filePath = path.join(__dirname, "files", filename);
+
+    // Send the PDF file if it exists
+    res.sendFile(filePath, (err) => {
+        if (err) {
+            console.error(err);
+            res.status(404).send({ status: "error", message: "File not found" });
+        }
+    });
 });

@@ -1,9 +1,29 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.js",
+  import.meta.url
+).toString();
 
 function Hero() {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState("");
+  const [allImage, setAllImage] = useState(null);
+  const [pdfFile, setPdfFile] = useState(null);
+
+  useEffect(() => {
+    getPdf();
+  }, []);
+
+  const getPdf = async () => {
+    const result = await axios.get("http://localhost:5000/get-files");
+    console.log(result.data.data);
+    setAllImage(result.data.data);
+  };
+
   const submitImage = async (e) => {
     e.preventDefault();
     const formData = new FormData();
