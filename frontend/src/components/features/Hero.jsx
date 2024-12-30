@@ -1,5 +1,4 @@
 import React from "react";
-import icon from "../../assets/icon.png"; // Ensure this path points to the correct location of your image
 import { useState } from "react";
 
 function Hero() {
