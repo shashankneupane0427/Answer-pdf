@@ -1,55 +1,104 @@
 import React from "react";
 import icon from "../../assets/icon.png"; // Ensure this path points to the correct location of your image
+import { useState } from "react";
 
 function Hero() {
-    return (
-        <section style={{
-            width: "100vw",
-            height: "80vh",
-            backgroundColor: "#7C89CA",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            padding: "0",
-            margin: "0",
-            position: "relative",
-        }}>
-            <div style={{
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                border: "1px solid rgba(255, 255, 255, 0.3)",
-                borderRadius: "10px",
-                padding: "30px 20px",
-                width: "50%",
-                height: "50%",
-                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-                textAlign: "center",
-                overflow: "hidden",
-                position: "absolute",
-                top: "50%",
-                transform: "translateY(-50%)",
-            }} className="hover-container">
-                <span className="line top"></span>
-                <span className="line right"></span>
-                <span className="line bottom"></span>
-                <span className="line left"></span>
+  const [title, setTitle] = useState("");
+  const [file, setFile] = useState("");
+  const submitImage = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("file", file);
+    console.log(title, file);
 
-                <img src={icon} alt="Icon" style={{
-                    width: "110px",
-                    paddingTop: "90px",
-                    marginBottom: "15px",
-                }} />
-                <p style={{
-                    fontSize: "20px",
-                    color: "white",
-                    lineHeight: "1.5",
-                }}>
-                    Remember everything and tackle any project with your notes, tasks, and schedule all in one place.
-                </p>
-            </div>
+    const result = await axios.post(
+      "http://localhost:5000/upload-files",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    console.log(result);
+    if (result.data.status == "ok") {
+      alert("Uploaded Successfully!!!");
+      getPdf();
+    }
+  };
+  return (
+    <section
+      style={{
+        width: "100vw",
+        height: "80vh",
+        backgroundColor: "#7C89CA",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        padding: "0",
+        margin: "0",
+        position: "relative",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          border: "1px solid rgba(255, 255, 255, 0.3)",
+          borderRadius: "10px",
+          padding: "30px 20px",
+          width: "50%",
+          height: "50%",
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+          textAlign: "center",
+          overflow: "hidden",
+          position: "absolute",
+          top: "50%",
+          transform: "translateY(-50%)",
+        }}
+        className="hover-container"
+      >
+        <span className="line top"></span>
+        <span className="line right"></span>
+        <span className="line bottom"></span>
+        <span className="line left"></span>
 
-            <style>
-                {`
+        <form className="formStyle" onSubmit={submitImage}>
+          <h4>Upload Pdf in React</h4>
+          <br />
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Title"
+            required
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <br />
+          <input
+            type="file"
+            class="form-control"
+            accept="application/pdf"
+            required
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <br />
+          <button class="btn btn-primary" type="submit">
+            Submit
+          </button>
+        </form>
+        <p
+          style={{
+            fontSize: "20px",
+            color: "white",
+            lineHeight: "1.5",
+          }}
+        >
+          Remember everything and tackle any project with your notes, tasks, and
+          schedule all in one place.
+        </p>
+      </div>
+
+      <style>
+        {`
                 .hover-container {
                     position: relative;
                     overflow: hidden;
@@ -96,9 +145,9 @@ function Hero() {
                     transform: scaleY(1);
                 }
                 `}
-            </style>
-        </section>
-    );
+      </style>
+    </section>
+  );
 }
 
 export default Hero;
