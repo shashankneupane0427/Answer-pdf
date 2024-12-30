@@ -1,17 +1,20 @@
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import MainContent from "./components/MainContent";
-import Footer from "./components/Footer";
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./components/pages/Login/Login";
+import Signup from "./components/pages/Signup/Signup";
+import Home from "./components/pages/Home/Home";
 
-function App() {
+const App = () => {
   return (
     <div>
-      <Header />
-      <Hero />
-      <MainContent />
-      <Footer />
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;

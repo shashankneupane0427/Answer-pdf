@@ -1,5 +1,5 @@
 import React from "react";
-import image from "../assets/icon.png";
+import icon from "../../assets/icon.png"; // Ensure this path points to the correct location of your image
 
 function Hero() {
     return (
@@ -34,7 +34,7 @@ function Hero() {
                 <span className="line bottom"></span>
                 <span className="line left"></span>
 
-                <img src={image} alt="Icon" style={{
+                <img src={icon} alt="Icon" style={{
                     width: "110px",
                     paddingTop: "90px",
                     marginBottom: "15px",

@@ -1,5 +1,5 @@
 import React from "react";
-import image from "../assets/Laptoplogo.png";
+import laptopLogo from "../../assets/laptoplogo.png"; // Ensure this path is correct
 
 function MainContent() {
     return (
@@ -44,7 +44,7 @@ function MainContent() {
                 </button>
             </div>
             <div>
-                <img src={image} alt="Laptop Icon" style={{
+                <img src={laptopLogo} alt="Laptop Icon" style={{
                     width: "200px",
                     height: "150px",
                 }} />

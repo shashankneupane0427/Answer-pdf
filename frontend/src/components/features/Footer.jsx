@@ -1,5 +1,6 @@
 import React from "react";
-import image from "../assets/instalogo.jpeg";
+import image from "../../assets/instalogo.jpeg";
+
 
 function Footer() {
     return (

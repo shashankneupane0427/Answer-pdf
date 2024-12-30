@@ -14,10 +14,9 @@
   "description": "",
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^6.0.6"
+    "vite": "^6.0.5"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-router-dom": "^7.1.1"
   }
 }
