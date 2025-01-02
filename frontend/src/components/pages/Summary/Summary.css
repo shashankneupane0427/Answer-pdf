@@ -1,0 +1,102 @@
+.summary-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  .summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .summary-actions button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .summary-body {
+    display: flex;
+    flex: 1;
+  }
+  
+  .summary-tools {
+    width: 15%;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #ccc;
+  }
+  
+  .summary-tools button {
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .summary-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .file-name {
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .page-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .page-preview p {
+    width: 100px;
+    height: 140px;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .summary-pages {
+    width: 20%;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-left: 1px solid #ccc;
+  }
+  
+  .page-actions p {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .page-icons div {
+    width: 100px;
+    height: 140px;
+    margin-bottom: 10px;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .summary-footer {
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    border-top: 1px solid #ccc;
+    text-align: right;
+  }
+  

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function HomePage() {
+function Hero() {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
+  const navigate = useNavigate(); // Hook for navigation
 
   const handleFileUpload = (e) => {
     e.preventDefault();
@@ -10,8 +12,9 @@ function HomePage() {
       alert("Please upload a file.");
       return;
     }
-    alert(`File uploaded: ${file.name}\nTitle: ${title}`);
-    // You can add API handling logic here for file uploads.
+
+    // Redirect to Summary page with the file in navigation state
+    navigate("/summary", { state: { file } });
   };
 
   return (
@@ -171,4 +174,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Hero;
