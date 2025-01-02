@@ -1,49 +1,19 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { pdfjs } from "react-pdf";
+import React, { useState } from "react";
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.js",
-  import.meta.url
-).toString();
-
-function Hero() {
+function HomePage() {
   const [title, setTitle] = useState("");
-  const [file, setFile] = useState("");
-  const [allImage, setAllImage] = useState(null);
-  const [pdfFile, setPdfFile] = useState(null);
+  const [file, setFile] = useState(null);
 
-  useEffect(() => {
-    getPdf();
-  }, []);
-
-  const getPdf = async () => {
-    const result = await axios.get("http://localhost:5000/get-files");
-    console.log(result.data.data);
-    setAllImage(result.data.data);
-  };
-
-  const submitImage = async (e) => {
+  const handleFileUpload = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("file", file);
-    console.log(title, file);
-
-    const result = await axios.post(
-      "http://localhost:5000/upload-files",
-      formData,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-      }
-    );
-    console.log(result);
-    if (result.data.status == "ok") {
-      alert("Uploaded Successfully!!!");
-      getPdf();
+    if (!file) {
+      alert("Please upload a file.");
+      return;
     }
+    alert(`File uploaded: ${file.name}\nTitle: ${title}`);
+    // You can add API handling logic here for file uploads.
   };
+
   return (
     <section
       style={{
@@ -67,7 +37,7 @@ function Hero() {
           padding: "30px 20px",
           width: "50%",
           height: "50%",
-          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+          boxShadow: "0 8px 20px rgba(0, 0, 0, 0.3)",
           textAlign: "center",
           overflow: "hidden",
           position: "absolute",
@@ -81,92 +51,124 @@ function Hero() {
         <span className="line bottom"></span>
         <span className="line left"></span>
 
-        <form className="formStyle" onSubmit={submitImage}>
-          <h4>Upload Pdf in React</h4>
+        {/* Integrated Form Section */}
+        <form className="formStyle" onSubmit={handleFileUpload}>
+          <h4 style={{ color: "#FFF", fontWeight: "bold", fontSize: "1.5rem" }}>
+            Upload File
+          </h4>
           <br />
           <input
             type="text"
-            className="form-control"
-            placeholder="Title"
+            placeholder="Enter a Title"
+            value={title}
             required
             onChange={(e) => setTitle(e.target.value)}
+            style={{
+              width: "80%",
+              margin: "10px 0",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              outline: "none",
+              fontSize: "1rem",
+            }}
           />
-          <br />
           <input
             type="file"
-            class="form-control"
             accept="application/pdf"
             required
             onChange={(e) => setFile(e.target.files[0])}
+            style={{
+              width: "80%",
+              margin: "10px 0",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              outline: "none",
+              fontSize: "1rem",
+              backgroundColor: "#FFF",
+            }}
           />
-          <br />
-          <button class="btn btn-primary" type="submit">
+          <button
+            type="submit"
+            style={{
+              marginTop: "15px",
+              padding: "10px 20px",
+              fontSize: "1rem",
+              backgroundColor: "#007BFF",
+              color: "#FFF",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              transition: "background-color 0.3s ease",
+            }}
+          >
             Submit
           </button>
         </form>
+
         <p
           style={{
-            fontSize: "20px",
+            fontSize: "1.2rem",
             color: "white",
-            lineHeight: "1.5",
+            marginTop: "20px",
           }}
         >
-          Remember everything and tackle any project with your notes, tasks, and
-          schedule all in one place.
+          Make sure to upload your files securely and keep your documents organized.
         </p>
       </div>
 
       <style>
         {`
-                .hover-container {
-                    position: relative;
-                    overflow: hidden;
-                }
-                .hover-container .line {
-                    position: absolute;
-                    background-color: #007BFF;
-                    transition: transform 0.4s ease;
-                }
-                .hover-container .line.top,
-                .hover-container .line.bottom {
-                    height: 2px;
-                    width: 100%;
-                    left: 0;
-                }
-                .hover-container .line.top {
-                    top: 0;
-                    transform: scaleX(0);
-                }
-                .hover-container .line.bottom {
-                    bottom: 0;
-                    transform: scaleX(0);
-                }
-                .hover-container .line.left,
-                .hover-container .line.right {
-                    width: 2px;
-                    height: 100%;
-                    top: 0;
-                }
-                .hover-container .line.left {
-                    left: 0;
-                    transform: scaleY(0);
-                }
-                .hover-container .line.right {
-                    right: 0;
-                    transform: scaleY(0);
-                }
-                .hover-container:hover .line.top,
-                .hover-container:hover .line.bottom {
-                    transform: scaleX(1);
-                }
-                .hover-container:hover .line.left,
-                .hover-container:hover .line.right {
-                    transform: scaleY(1);
-                }
-                `}
+          .hover-container {
+            position: relative;
+            overflow: hidden;
+          }
+          .hover-container .line {
+            position: absolute;
+            background-color: #FFF;
+            transition: transform 0.4s ease;
+          }
+          .hover-container .line.top,
+          .hover-container .line.bottom {
+            height: 3px;
+            width: 100%;
+            left: 0;
+          }
+          .hover-container .line.top {
+            top: 0;
+            transform: scaleX(0);
+          }
+          .hover-container .line.bottom {
+            bottom: 0;
+            transform: scaleX(0);
+          }
+          .hover-container .line.left,
+          .hover-container .line.right {
+            width: 3px;
+            height: 100%;
+            top: 0;
+          }
+          .hover-container .line.left {
+            left: 0;
+            transform: scaleY(0);
+          }
+          .hover-container .line.right {
+            right: 0;
+            transform: scaleY(0);
+          }
+          .hover-container:hover .line.top,
+          .hover-container:hover .line.bottom {
+            transform: scaleX(1);
+          }
+          .hover-container:hover .line.left,
+          .hover-container:hover .line.right {
+            transform: scaleY(1);
+          }
+        `}
       </style>
     </section>
   );
 }
 
-export default Hero;
+export default HomePage;
