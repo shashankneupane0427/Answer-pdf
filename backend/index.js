@@ -31,16 +31,18 @@ const storage = multer.diskStorage({
     },
 });
 
+
 const PdfSchema = mongoose.model("PdfDetails");
 const upload = multer({ storage: storage });
 
 // File upload endpoint--------------------------------------------
 app.post("/upload-files", upload.single("file"), async (req, res) => {
     console.log(req.file);
-    const title = req.body.title;
     const fileName = req.file.filename;
+    const originalName = req.file.originalname;
+    const title = path.parse(originalName).name; // Extract title from the original file name
     try {
-        await PdfSchema.create({ title: title, pdf: fileName });
+        await PdfSchema.create({ title: title, pdf: fileName, originalName: originalName });
         res.send({ status: "ok" });
     } catch (error) {
         res.json({ status: error });
@@ -65,6 +67,7 @@ app.get("/", async (req, res) => {
 app.listen(5000, () => {
     console.log("Server Started");
 });
+
 app.get("/get-pdf/:filename", async (req, res) => {
     const { filename } = req.params; // Get the filename from the request parameters
     const filePath = path.join(__dirname, "files", filename);
@@ -76,4 +79,14 @@ app.get("/get-pdf/:filename", async (req, res) => {
             res.status(404).send({ status: "error", message: "File not found" });
         }
     });
+});
+
+// Get PDF names endpoint------------------------------------------
+app.get("/get-pdf-names", async (req, res) => {
+    try {
+        const pdfNames = await PdfSchema.find({}, 'title originalName');
+        res.send({ status: "ok", data: pdfNames });
+    } catch (error) {
+        res.json({ status: error });
+    }
 });

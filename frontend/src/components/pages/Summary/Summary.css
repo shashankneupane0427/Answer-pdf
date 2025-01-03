@@ -141,6 +141,8 @@ body {
   padding: 25px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-grow: 1; /* Make the file-list take up remaining space */
+  overflow-y: auto;
 }
 
 .file-list h3 {
