@@ -7,7 +7,7 @@ import Summary from "./components/pages/Summary/Summary";
 
 const App = () => {
   return (
-    <div>
+    <div> 
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/login" element={<Login />} />
