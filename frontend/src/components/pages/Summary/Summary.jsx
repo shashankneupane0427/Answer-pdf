@@ -10,7 +10,7 @@ const Summary = ({ userName }) => {
 
   useEffect(() => {
     getPdf();
-  });
+  },[]);
 
   const getPdf = async () => {
     try {
@@ -63,7 +63,7 @@ const Summary = ({ userName }) => {
 
   useEffect(() => {
     fetchPdfNames();
-  });
+  },[file, files]);
 
   const fetchPdfNames = async () => {
     try {
