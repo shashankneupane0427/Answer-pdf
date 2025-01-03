@@ -1,29 +1,62 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import "./Summary.css";
 
-const Summary = () => {
-  const location = useLocation();
-  const { file } = location.state || {}; // Access the file passed from Home.jsx
+const Summary = ({ userName }) => {
+  const [files, setFiles] = useState([]);
+
+  const handleFileUpload = (event) => {
+    const uploadedFiles = Array.from(event.target.files).map((file) => ({
+      name: file.name,
+      date: new Date().toLocaleDateString(),
+    }));
+    setFiles([...files, ...uploadedFiles]);
+  };
 
   return (
-    <div
-      style={{
-        padding: "2rem",
-        fontFamily: "'Arial', sans-serif",
-        textAlign: "center",
-      }}
-    >
-      <h1>Summary Page</h1>
-      {file ? (
-        <>
-          <p>File Name: {file.name}</p>
-          <p>File Size: {(file.size / 1024).toFixed(2)} KB</p>
-          <p>File Type: {file.type}</p>
-          {/* Add logic to process and display the summary of the file here */}
-        </>
-      ) : (
-        <p>No file was provided.</p>
-      )}
+    <div className="summary-container">
+      <header className="summary-header">
+        <div className="logo">Easy Notes</div>
+        <div className="search-bar">
+          <input type="text" placeholder="Search" />
+        </div>
+        <div className="header-actions">
+          <button className="upgrade-button">Upgrade</button>
+          <div className="profile-dropdown">
+            <button className="profile-button">{userName} ▼</button>
+          </div>
+        </div>
+      </header>
+      <main className="summary-main">
+        <div className="file-controls">
+          <label htmlFor="file-upload" className="upload-button">
+            Upload
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            accept=".pdf"
+            multiple
+            onChange={handleFileUpload}
+            style={{ display: "none" }}
+          />
+          <button className="ask-all-button">Ask all</button>
+        </div>
+        <div className="file-list">
+          <h3>All Files</h3>
+          {files.length === 0 ? (
+            <p>No files uploaded yet.</p>
+          ) : (
+            <ul>
+              {files.map((file, index) => (
+                <li key={index} className="file-item">
+                  <span className="file-name">{file.name}</span>
+                  <span className="file-date">{file.date}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </main>
     </div>
   );
 };

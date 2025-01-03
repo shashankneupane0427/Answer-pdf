@@ -1,5 +1,5 @@
 import React from "react";
-import laptopLogo from "../../assets/laptoplogo.png"; // Ensure this path is correct
+import laptopLogo from "../../assets/laptoplogo.png"; 
 
 function MainContent() {
     return (

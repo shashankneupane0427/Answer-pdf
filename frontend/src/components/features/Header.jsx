@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  // Ensure body margin is removed for consistent layout
+  
   document.body.style.margin = "0";
 
   return (
@@ -16,7 +16,7 @@ const Header = () => {
         borderBottom: "1px solid #ccc",
       }}
     >
-      {/* Website Logo or Title */}
+    
       <h1
         style={{
           fontSize: "1.5rem",
@@ -28,7 +28,7 @@ const Header = () => {
         Easy Notes
       </h1>
 
-      {/* Navigation Links */}
+    
       <nav>
         <ul
           style={{
@@ -40,7 +40,7 @@ const Header = () => {
             alignItems: "center",
           }}
         >
-          {/* Home Link */}
+          
           <li>
             <Link
               to="/home"
@@ -54,7 +54,7 @@ const Header = () => {
             </Link>
           </li>
 
-          {/* About Us Link */}
+          
           <li>
             <Link
               to="/about"
@@ -68,7 +68,7 @@ const Header = () => {
             </Link>
           </li>
 
-          {/* Contact Link */}
+          
           <li>
             <Link
               to="/contact"
@@ -82,7 +82,7 @@ const Header = () => {
             </Link>
           </li>
 
-          {/* Help Link */}
+        
           <li>
             <Link
               to="/help"
@@ -96,7 +96,7 @@ const Header = () => {
             </Link>
           </li>
 
-          {/* Support Link */}
+          
           <li>
             <Link
               to="/support"
@@ -110,7 +110,7 @@ const Header = () => {
             </Link>
           </li>
 
-          {/* Login Button */}
+          
           <li>
             <Link to="/login">
               <button
@@ -129,7 +129,7 @@ const Header = () => {
             </Link>
           </li>
 
-          {/* Sign Up Button */}
+          
           <li>
             <Link to="/signup">
               <button
