@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Summary.css";
-
+import logo from "../../../assets/pdflexa.png";
 const Summary = ({ userName }) => {
   const [files, setFiles] = useState([]);
   const [file, setFile] = useState(null);
@@ -77,7 +77,9 @@ const Summary = ({ userName }) => {
   return (
     <div className="summary-container">
       <header className="summary-header">
-        <div className="logo">Easy Notes</div>
+        <div className="logo">
+          <img src={logo} width={120} height={120} alt="Logo" />
+        </div>
         <div className="search-bar">
           <input type="text" placeholder="Search" />
         </div>
