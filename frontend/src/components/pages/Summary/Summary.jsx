@@ -1,9 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {
+  FaRocket,
+  FaChevronDown,
+  FaUser,
+  FaCog,
+  FaSignOutAlt,
+  FaUpload,
+  FaCloudUploadAlt,
+  FaSpinner,
+  FaFolderOpen,
+  FaEye,
+  FaPencilAlt,
+  FaComment,
+} from "react-icons/fa";
 import "./Summary.css";
 
-const Summary = ({ userName }) => {
+const Summary = ({ userName = "User" }) => {
   const [files, setFiles] = useState([]);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -21,7 +35,7 @@ const Summary = ({ userName }) => {
     setLoading(true);
     try {
       const result = await axios.get("http://localhost:5000/get-files");
-      setFiles(result.data.data || []);
+      setFiles(result.data?.data || []);
     } catch (error) {
       console.error("Error fetching files:", error);
       alert("Failed to fetch files. Please try again later.");
@@ -31,16 +45,14 @@ const Summary = ({ userName }) => {
   };
 
   const handleFileUpload = (event) => {
-    const selectedFiles = Array.from(event.target.files);
-    if (selectedFiles.length > 0) {
+    const selectedFiles = event.target.files;
+    if (selectedFiles && selectedFiles[0]) {
       const selectedFile = selectedFiles[0];
-
       if (selectedFile.size > MAX_FILE_SIZE) {
         alert("File size exceeds the 50 MB limit. Please select a smaller file.");
-        return;
+      } else {
+        setFile(selectedFile);
       }
-
-      setFile(selectedFile);
     }
   };
 
@@ -50,7 +62,6 @@ const Summary = ({ userName }) => {
 
   const handleDragOver = (event) => {
     event.preventDefault();
-    event.stopPropagation();
     document.querySelector(".upload-section").classList.add("drag-over");
   };
 
@@ -60,20 +71,16 @@ const Summary = ({ userName }) => {
 
   const handleDrop = (event) => {
     event.preventDefault();
-    event.stopPropagation();
-    document.querySelector(".upload-section").classList.remove("drag-over");
-
-    const droppedFiles = Array.from(event.dataTransfer.files);
-    if (droppedFiles.length > 0) {
+    const droppedFiles = event.dataTransfer?.files;
+    if (droppedFiles && droppedFiles[0]) {
       const droppedFile = droppedFiles[0];
-
       if (droppedFile.size > MAX_FILE_SIZE) {
         alert("File size exceeds the 50 MB limit. Please select a smaller file.");
-        return;
+      } else {
+        setFile(droppedFile);
       }
-
-      setFile(droppedFile);
     }
+    document.querySelector(".upload-section").classList.remove("drag-over");
   };
 
   const submitFile = async (e) => {
@@ -82,10 +89,8 @@ const Summary = ({ userName }) => {
       alert("Please select a file before submitting.");
       return;
     }
-
     const formData = new FormData();
     formData.append("file", file);
-
     setLoading(true);
     setProgress(0);
 
@@ -97,8 +102,7 @@ const Summary = ({ userName }) => {
           setProgress(percent);
         },
       });
-
-      if (result.data.status === "ok") {
+      if (result.data?.status === "ok") {
         alert("Uploaded Successfully!");
         fetchFiles();
         setFile(null);
@@ -119,50 +123,39 @@ const Summary = ({ userName }) => {
 
   const logout = () => {
     alert("Logging out...");
+    // Add your logout logic here
   };
 
   return (
     <div className="summary-container">
-      {/* Header Section */}
       <header className="summary-header">
         <div className="logo">
-          <img
-            src="https://via.placeholder.com/100x50?text=Logo"
-            alt="Easy Notes Logo"
-          />
+          <img src="https://via.placeholder.com/100x50?text=Logo" alt="Easy Notes Logo" />
         </div>
         <div className="search-bar">
           <input type="text" placeholder="Search" />
         </div>
         <div className="header-actions">
           <button className="upgrade-button">
-            <i className="fas fa-rocket"></i> Upgrade
+            <FaRocket /> Upgrade
           </button>
           <div className="profile-container" onClick={toggleDropdown}>
             <div className="profile-button">
-              <img
-                src="https://via.placeholder.com/40"
-                alt="Profile"
-                className="profile-image"
-              />
+              <img src="https://via.placeholder.com/40" alt="Profile" className="profile-image" />
               <span className="profile-name">{userName}</span>
-              <i
-                className={`fas fa-chevron-down dropdown-icon ${
-                  dropdownOpen ? "open" : ""
-                }`}
-              ></i>
+              <FaChevronDown className={`dropdown-icon ${dropdownOpen ? "open" : ""}`} />
             </div>
             {dropdownOpen && (
               <div className="profile-dropdown">
                 <ul>
                   <li onClick={() => navigate("/profile")}>
-                    <i className="fas fa-user"></i> My Profile
+                    <FaUser /> My Profile
                   </li>
                   <li onClick={() => navigate("/settings")}>
-                    <i className="fas fa-cog"></i> Settings
+                    <FaCog /> Settings
                   </li>
                   <li onClick={logout}>
-                    <i className="fas fa-sign-out-alt"></i> Logout
+                    <FaSignOutAlt /> Logout
                   </li>
                 </ul>
               </div>
@@ -171,7 +164,6 @@ const Summary = ({ userName }) => {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="summary-main">
         <div
           className="upload-section"
@@ -180,11 +172,9 @@ const Summary = ({ userName }) => {
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
         >
-          <div className="upload-icon-wrapper">
-            <i className="fas fa-upload upload-icon"></i>
-          </div>
+          <FaUpload className="upload-icon" />
           <p>
-            Drag and Drop, <span className="highlight">Upload a file</span> or a{" "}
+            Drag and Drop, <span className="highlight">Upload a file</span> or a {" "}
             <span className="highlight">URL</span>
           </p>
           <p className="file-types">PDF, DOCX, DOC, PPTX, PPT, or TXT</p>
@@ -196,53 +186,52 @@ const Summary = ({ userName }) => {
             style={{ display: "none" }}
           />
         </div>
-        {loading && (
-          <div className="progress-bar-container">
-            <div
-              className="progress-bar"
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-        )}
+
+        {loading && <div className="progress-bar" style={{ width: `${progress}%` }} />}
         {file && (
           <div className="file-thumbnails">
             <div className="thumbnail">
-              <img
-                src="https://via.placeholder.com/100"
-                alt={file.name}
-                className="file-icon"
-              />
+              <img src="https://via.placeholder.com/100" alt={file.name} />
               <span>{file.name}</span>
             </div>
           </div>
         )}
-        <form onSubmit={submitFile} className="file-form">
+
+        <form onSubmit={submitFile} style={{ textAlign: "center" }}>
           <button
             type="submit"
             disabled={loading || !file}
-            className="submit-button"
+            style={{
+              margin: "20px auto",
+              padding: "10px 24px", // Adjusted padding for better proportions
+              fontSize: "16px", // Slightly larger font
+              fontWeight: "600", // Bolder text for emphasis
+              borderRadius: "8px", // Slightly smaller radius for a sharper look
+              backgroundColor: "#3498db",
+              color: "#fff",
+              border: "none",
+              cursor: "pointer",
+              transition: "background-color 0.3s ease",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "45px", // Reduced height for a sleeker design
+              gap: "8px", // Space between the icon and text
+            }}
+            
           >
-            {loading ? (
-              <>
-                <i className="fas fa-spinner fa-spin"></i> Uploading...
-              </>
-            ) : (
-              <>
-                <i className="fas fa-cloud-upload-alt"></i> Submit
-              </>
-            )}
+            {loading ? <FaSpinner className="fa-spin" /> : <FaCloudUploadAlt />} Submit
           </button>
         </form>
 
-        {/* Files List */}
         <div className="file-list">
           <h3>
-            <i className="fas fa-folder-open"></i> All Files
+            <FaFolderOpen /> All Files
           </h3>
           {files.length === 0 ? (
             <p>No files uploaded yet.</p>
           ) : (
-            <table className="desktop-view">
+            <table>
               <thead>
                 <tr>
                   <th>Name</th>
@@ -257,10 +246,10 @@ const Summary = ({ userName }) => {
                     <td>{file.title}</td>
                     <td>{file.date}</td>
                     <td>Admin</td>
-                    <td className="file-actions">
-                      <i className="fas fa-eye action-icon"></i>
-                      <i className="fas fa-pencil-alt action-icon"></i>
-                      <i className="fas fa-comment action-icon"></i>
+                    <td>
+                      <FaEye className="action-icon" />
+                      <FaPencilAlt className="action-icon" />
+                      <FaComment className="action-icon" />
                     </td>
                   </tr>
                 ))}
