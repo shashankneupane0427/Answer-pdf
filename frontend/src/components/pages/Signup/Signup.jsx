@@ -8,33 +8,33 @@ const Signup = () => {
       <div className="signup-box">
         <h2>Create an Account</h2>
         <form>
-          <input 
-            type="text" 
-            placeholder="Full Name" 
-            className="input-field" 
-            aria-label="Full Name" 
-            required 
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="input-field"
+            aria-label="Full Name"
+            required
           />
-          <input 
-            type="email" 
-            placeholder="Email" 
-            className="input-field" 
-            aria-label="Email" 
-            required 
+          <input
+            type="email"
+            placeholder="Email"
+            className="input-field"
+            aria-label="Email"
+            required
           />
-          <input 
-            type="password" 
-            placeholder="Password" 
-            className="input-field" 
-            aria-label="Password" 
-            required 
+          <input
+            type="password"
+            placeholder="Password"
+            className="input-field"
+            aria-label="Password"
+            required
           />
-          <input 
-            type="password" 
-            placeholder="Confirm Password" 
-            className="input-field" 
-            aria-label="Confirm Password" 
-            required 
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            className="input-field"
+            aria-label="Confirm Password"
+            required
           />
           <button type="submit" className="signup-button">
             Sign Up

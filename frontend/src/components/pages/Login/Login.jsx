@@ -6,8 +6,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
-    e.preventDefault(); 
-    const isAuthenticated = true; 
+    e.preventDefault();
+    const isAuthenticated = true;
 
     if (isAuthenticated) {
       navigate("/home");
@@ -21,27 +21,27 @@ const Login = () => {
       <div className="login-box">
         <h2>Log In</h2>
         <form onSubmit={handleLogin}>
-          <input 
-            type="email" 
-            placeholder="Email" 
-            className="input-field" 
-            aria-label="Email" 
-            required 
+          <input
+            type="email"
+            placeholder="Email"
+            className="input-field"
+            aria-label="Email"
+            required
           />
-          <input 
-            type="password" 
-            placeholder="Password" 
-            className="input-field" 
-            aria-label="Password" 
-            required 
+          <input
+            type="password"
+            placeholder="Password"
+            className="input-field"
+            aria-label="Password"
+            required
           />
-          <Link to="/forgot-password" className="forgot-password">
-            Forgot password?
-          </Link>
           <button type="submit" className="login-button">
             Log In
           </button>
         </form>
+        <Link to="/forgot-password" className="forgot-password">
+          Forgot password?
+        </Link>
         <div className="signup-link">
           Don&apos;t have an account? <Link to="/signup">Sign up</Link>
         </div>
