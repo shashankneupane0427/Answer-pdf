@@ -13,16 +13,22 @@
     "test": "vitest",
     "prepare": "husky install"
   },
-  "keywords": ["notes", "productivity", "react", "vite", "modern"],
+  "keywords": [
+    "notes",
+    "productivity",
+    "react",
+    "vite",
+    "modern"
+  ],
   "author": "Your Name <your.email@example.com>",
   "license": "MIT",
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^6.0.6",
     "eslint": "^8.51.0",
     "eslint-plugin-react": "^7.33.0",
-    "prettier": "^3.1.0",
     "husky": "^8.0.3",
+    "prettier": "^3.1.0",
+    "vite": "^6.0.7",
     "vitest": "^0.34.0"
   },
   "dependencies": {
