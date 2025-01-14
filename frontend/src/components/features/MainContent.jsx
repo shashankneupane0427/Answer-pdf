@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FaCloud, FaLock, FaUserShield, FaSignInAlt } from "react-icons/fa";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 function MainContent() {
     const [activeIndex, setActiveIndex] = useState(null);
@@ -91,17 +93,11 @@ function MainContent() {
                         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     }}
                 >
-                    <div
-                        style={{
-                            width: "60px",
-                            height: "60px",
-                            backgroundColor: "#E5E7EB",
-                            borderRadius: "50%",
-                            margin: "0 auto 20px",
-                        }}
-                    >
-                        {/* Placeholder for an image */}
-                    </div>
+                    <FaCloud
+                        size={40}
+                        color="#2563EB"
+                        style={{ marginBottom: "20px" }}
+                    />
                     <h3
                         style={{
                             fontSize: "20px",
@@ -127,17 +123,11 @@ function MainContent() {
                         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     }}
                 >
-                    <div
-                        style={{
-                            width: "60px",
-                            height: "60px",
-                            backgroundColor: "#E5E7EB",
-                            borderRadius: "50%",
-                            margin: "0 auto 20px",
-                        }}
-                    >
-                        {/* Placeholder for an image */}
-                    </div>
+                    <FaLock
+                        size={40}
+                        color="#2563EB"
+                        style={{ marginBottom: "20px" }}
+                    />
                     <h3
                         style={{
                             fontSize: "20px",
@@ -163,17 +153,11 @@ function MainContent() {
                         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     }}
                 >
-                    <div
-                        style={{
-                            width: "60px",
-                            height: "60px",
-                            backgroundColor: "#E5E7EB",
-                            borderRadius: "50%",
-                            margin: "0 auto 20px",
-                        }}
-                    >
-                        {/* Placeholder for an image */}
-                    </div>
+                    <FaUserShield
+                        size={40}
+                        color="#2563EB"
+                        style={{ marginBottom: "20px" }}
+                    />
                     <h3
                         style={{
                             fontSize: "20px",
@@ -197,19 +181,13 @@ function MainContent() {
                         backgroundColor: "#FFFFFF",
                         borderRadius: "8px",
                         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    }} 
+                    }}
                 >
-                    <div
-                        style={{
-                            width: "60px",
-                            height: "60px",
-                            backgroundColor: "#E5E7EB",
-                            borderRadius: "50%",
-                            margin: "0 auto 20px",
-                        }}
-                    >
-                        {/* Placeholder for an image */}
-                    </div>
+                    <FaSignInAlt
+                        size={40}
+                        color="#2563EB"
+                        style={{ marginBottom: "20px" }}
+                    />
                     <h3
                         style={{
                             fontSize: "20px",
@@ -298,7 +276,7 @@ function MainContent() {
                                     transform: activeIndex === index ? "rotate(180deg)" : "rotate(0)",
                                 }}
                             >
-                                &#x25BC;
+                                {activeIndex === index ? <FiChevronUp /> : <FiChevronDown />}
                             </span>
                         </button>
                         {activeIndex === index && (

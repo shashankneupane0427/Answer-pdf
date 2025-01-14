@@ -11,9 +11,6 @@ import {
   FaCloudUploadAlt,
   FaSpinner,
   FaFolderOpen,
-  FaEye,
-  FaPencilAlt,
-  FaComment,
 } from "react-icons/fa";
 import "./Summary.css";
 
@@ -123,7 +120,6 @@ const Summary = ({ userName = "User" }) => {
 
   const logout = () => {
     alert("Logging out...");
-    // Add your logout logic here
   };
 
   return (
@@ -174,7 +170,7 @@ const Summary = ({ userName = "User" }) => {
         >
           <FaUpload className="upload-icon" />
           <p>
-            Drag and Drop, <span className="highlight">Upload a file</span> or a {" "}
+            Drag and Drop, <span className="highlight">Upload a file</span> or a{" "}
             <span className="highlight">URL</span>
           </p>
           <p className="file-types">PDF, DOCX, DOC, PPTX, PPT, or TXT</p>
@@ -203,10 +199,10 @@ const Summary = ({ userName = "User" }) => {
             disabled={loading || !file}
             style={{
               margin: "20px auto",
-              padding: "10px 24px", // Adjusted padding for better proportions
-              fontSize: "16px", // Slightly larger font
-              fontWeight: "600", // Bolder text for emphasis
-              borderRadius: "8px", // Slightly smaller radius for a sharper look
+              padding: "10px 24px",
+              fontSize: "16px",
+              fontWeight: "600",
+              borderRadius: "8px",
               backgroundColor: "#3498db",
               color: "#fff",
               border: "none",
@@ -215,10 +211,9 @@ const Summary = ({ userName = "User" }) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              height: "45px", // Reduced height for a sleeker design
-              gap: "8px", // Space between the icon and text
+              height: "45px",
+              gap: "8px",
             }}
-            
           >
             {loading ? <FaSpinner className="fa-spin" /> : <FaCloudUploadAlt />} Submit
           </button>
@@ -247,9 +242,12 @@ const Summary = ({ userName = "User" }) => {
                     <td>{file.date}</td>
                     <td>Admin</td>
                     <td>
-                      <FaEye className="action-icon" />
-                      <FaPencilAlt className="action-icon" />
-                      <FaComment className="action-icon" />
+                      <button
+                        className="ask-button"
+                        onClick={() => alert(`Ask functionality for ${file.title}`)}
+                      >
+                        Ask
+                      </button>
                     </td>
                   </tr>
                 ))}
