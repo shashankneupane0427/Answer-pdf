@@ -188,6 +188,7 @@ body {
 .upload-icon {
   font-size: 24px;
   color: #a3774e;
+  cursor: pointer;
 }
 
 .upload-section p {
